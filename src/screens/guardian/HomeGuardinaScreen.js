@@ -1,178 +1,216 @@
-import React, { useState } from 'react';
-import {
-    Image,
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import React from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import axios from 'axios';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-// import illustration from '../assets/illustration.png'
-// import { BASE_URL, LOGIN_PATH } from '../utils/config';
+import { BASE_URL, GET_EVENTS } from '../utils/urls';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeGuardianScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [events, setEvents] = React.useState([]);
 
-    const login = async () => {
-        //     try {
-        //         const url = `${BASE_URL}/${LOGIN_PATH}`;
-        //         const res = await axios.post(url, {
-        //             email: email,
-        //             password: password
-        //         });
-        //         if (
-        //             res.status == 200 &&
-        //             res.data.data.token !== 'undefined' &&
-        //             res.data.data.user !== 'undefined'
-        //         ) {
-        //             await AsyncStorage.setItem('token', res.data.data.token);
-        //             await AsyncStorage.setItem(
-        //                 'user',
-        //                 JSON.stringify(res.data.data.user)
-        //             );
-        //             navigation.replace('Drawer');
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-    };
+    // const getEvents = async () => {
+    //     try {
+    //         const url = `${BASE_URL}/${GET_EVENTS}`;
+    //         const token = await AsyncStorage.getItem('token');
+
+    //         const res = await axios.post(url, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         });
+    //         setEvents(res.data.data.events);
+    //         console.log(events);
+    //     } catch (error) {
+    //         console.log(error.response);
+    //     }
+    // };
+
+    // React.useEffect(() => getEvents(), []);
 
     return (
-        <SafeAreaView style={styles.body}>
-            <StatusBar backgroundColor="#EBEFFA" barStyle="dark-content" />
-
-            {/* <View
-                style={{
-                    padding: 20,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                <Image style={styles.image} source={brandLogo} />
-            </View> */}
-
-            <Text style={styles.loginText}>Let's Start</Text>
-
-            <View style={styles.input}>
-                <TextInput
-                    placeholder="Email Address"
-                    placeholderTextColor="#353A48"
-                    enterKeyHint="next"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    onChangeText={(value) => setEmail(value)}
-                    onSubmitEditing={() => {
-                        this.secondTextInput.focus();
-                    }}
+        <SafeAreaView style={style.body}>
+            <StatusBar backgroundColor="#fafafd" barStyle="dark-content" />
+            <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                <Text
                     style={{
-                        marginHorizontal: 10
-                    }}
-                />
-                <MaterialIcons
-                    name="alternate-email"
-                    size={22}
-                    color={'#353A48'}
-                />
-            </View>
-
-            <View style={styles.input}>
-                <TextInput
-                    placeholder="Password"
-                    placeholderTextColor="#353A48"
-                    enterKeyHint="done"
-                    secureTextEntry={true}
-                    onChangeText={(value) => setPassword(value)}
-                    ref={(input) => {
-                        this.secondTextInput = input;
-                    }}
-                    style={{
-                        marginHorizontal: 10
-                    }}
-                />
-                <MaterialIcons name="password" size={22} color={'#353A48'} />
-            </View>
-
-            <View>
-                <TouchableOpacity
-                    style={styles.loginButtonView}
-                    onPress={login}>
-                    <Text style={styles.loginButtonText}>Register</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.registerButtonView}>
-                <Text style={{ color: '#353A48' }}>Already Registered? </Text>
-
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('Register');
+                        color: '#1c2b8a',
+                        fontSize: 30,
+                        fontWeight: 'bold'
                     }}>
-                    <Text style={styles.registerButton}>Login</Text>
-                </TouchableOpacity>
+                    Notifications
+                </Text>
+            </View>
+
+            <View style={style.notificationView}>
+                <View style={style.iconView}>
+                    <MaterialCommunityIcons
+                        name="handball"
+                        size={25}
+                        color={'#353A48'}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View>
+                        <Text style={{ color: '#1c2b8a', fontWeight: 'bold' }}>
+                            Fall Detected
+                        </Text>
+                        <Text style={{ color: '#000000' }}>
+                            Dec 11, 1:28 pm
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 90 }}>
+                        <MaterialIcons
+                            name="navigate-next"
+                            size={30}
+                            color={'#1c2b8a'}
+                        />
+                    </View>
+                </View>
+            </View>
+
+            <View style={style.notificationView}>
+                <View style={style.iconView}>
+                    <MaterialCommunityIcons
+                        name="handball"
+                        size={25}
+                        color={'#353A48'}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View>
+                        <Text style={{ color: '#1c2b8a', fontWeight: 'bold' }}>
+                            Fall Detected
+                        </Text>
+                        <Text style={{ color: '#000000' }}>
+                            Dec 11, 7:06 pm
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 90 }}>
+                        <MaterialIcons
+                            name="navigate-next"
+                            size={30}
+                            color={'#1c2b8a'}
+                        />
+                    </View>
+                </View>
+            </View>
+
+            <View style={style.notificationView}>
+                <View style={style.iconView}>
+                    <MaterialCommunityIcons
+                        name="handball"
+                        size={25}
+                        color={'#353A48'}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View>
+                        <Text style={{ color: '#1c2b8a', fontWeight: 'bold' }}>
+                            Fall Detected
+                        </Text>
+                        <Text style={{ color: '#000000' }}>
+                            Dec 11, 7:07 pm
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 90 }}>
+                        <MaterialIcons
+                            name="navigate-next"
+                            size={30}
+                            color={'#1c2b8a'}
+                        />
+                    </View>
+                </View>
+            </View>
+
+            <View style={style.notificationView}>
+                <View style={style.iconView}>
+                    <MaterialCommunityIcons
+                        name="handball"
+                        size={25}
+                        color={'#353A48'}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View>
+                        <Text style={{ color: '#1c2b8a', fontWeight: 'bold' }}>
+                            Fall Detected
+                        </Text>
+                        <Text style={{ color: '#000000' }}>
+                            Dec 11, 11:03 pm
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 90 }}>
+                        <MaterialIcons
+                            name="navigate-next"
+                            size={30}
+                            color={'#1c2b8a'}
+                        />
+                    </View>
+                </View>
+            </View>
+
+            <View style={style.notificationView}>
+                <View style={style.iconView}>
+                    <MaterialCommunityIcons
+                        name="handball"
+                        size={25}
+                        color={'#353A48'}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View>
+                        <Text style={{ color: '#1c2b8a', fontWeight: 'bold' }}>
+                            Fall Detected
+                        </Text>
+                        <Text style={{ color: '#000000' }}>
+                            Dec 11, 11:03 pm
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 90 }}>
+                        <MaterialIcons
+                            name="navigate-next"
+                            size={30}
+                            color={'#1c2b8a'}
+                        />
+                    </View>
+                </View>
             </View>
         </SafeAreaView>
     );
 };
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
     body: {
         flex: 1,
-        backgroundColor: '#EBEFFA',
+        backgroundColor: '#fafafd',
         padding: 25,
         width: '100%'
     },
-    image: {
-        height: 200,
-        width: 200,
-        resizeMode: 'contain',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 50
-    },
-    loginText: {
-        // fontWeight: 'bold',
-        fontSize: 70,
-        color: '#D7DBE7',
-        marginBottom: 30
-    },
-    input: {
-        color: '#000000',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomWidth: 1,
-        borderColor: '#353A48',
-        marginBottom: 28,
-        paddingRight: 10
-    },
-    loginButtonView: {
+    notificationView: {
         marginVertical: 15,
-        marginHorizontal: 8,
-        padding: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#353A48',
-        borderRadius: 5
-    },
-    loginButtonText: {
-        color: '#ffffff',
-        fontWeight: 'bold'
-    },
-    registerButtonView: {
         flexDirection: 'row',
-        marginVertical: 20,
-        justifyContent: 'center'
+        backgroundColor: '#ffffff',
+        borderRadius: 8,
+        width: '100%',
+        height: '10%',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5
     },
-    registerButton: {
-        color: '#353A48',
-        fontWeight: 'bold'
+    iconView: {
+        backgroundColor: '#f9dbf8',
+        height: '65%',
+        width: '15%',
+        borderRadius: 10,
+        marginLeft: 20,
+        marginRight: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
