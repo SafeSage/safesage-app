@@ -217,7 +217,7 @@ const RegisterGuardianScreen = ({ navigation }) => {
 
                 <TouchableOpacity
                     onPress={() => {
-                        navigation.navigate('Register');
+                        navigation.replace('Login');
                     }}>
                     <Text style={styles.registerButton}>Login</Text>
                 </TouchableOpacity>
