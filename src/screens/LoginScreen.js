@@ -68,10 +68,29 @@ const LoginScreen = ({ navigation }) => {
                 setError('Something went wrong');
                 onToggleSnackBar();
             }
-
             setIsLoading(false);
         }
     };
+
+    const isLoggedIn = async () => {
+        try {
+            const user = JSON.parse(await AsyncStorage.getItem('user'));
+
+            if (user) {
+                if (user.userType == 'GUARDIAN') {
+                    navigation.replace('Home_Guardian');
+                } else if (user.userType == 'PATIENT') {
+                    navigation.replace('Home_Patient');
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    React.useEffect(() => {
+        isLoggedIn();
+    }, []);
 
     return (
         <SafeAreaView style={styles.body}>

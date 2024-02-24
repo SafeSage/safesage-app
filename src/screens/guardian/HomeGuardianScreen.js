@@ -145,10 +145,20 @@ const HomeGuardianScreen = ({ navigation }) => {
                     />
                 </View>
 
-                <NotificationCard event={events[0]} />
-                <NotificationCard event={events[1]} />
-                <NotificationCard event={events[2]} />
-                <NotificationCard event={events[3]} />
+                {events.length ? (
+                    events.length < 4 ? (
+                        <FlatList data={events} renderItem={NotificationCard} />
+                    ) : (
+                        <View>
+                            <NotificationCard event={events[0]} />
+                            <NotificationCard event={events[1]} />
+                            <NotificationCard event={events[2]} />
+                            <NotificationCard event={events[3]} />
+                        </View>
+                    )
+                ) : (
+                    <Text>No notifications available</Text>
+                )}
             </View>
         </SafeAreaView>
     );
