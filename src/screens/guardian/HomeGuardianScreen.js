@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 import {
+    FlatList,
     Image,
     SafeAreaView,
     StatusBar,
@@ -9,20 +10,60 @@ import {
     View
 } from 'react-native';
 
+import axios from 'axios';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BottomSheet from '@gorhom/bottom-sheet';
 
-import { BASE_URL, GET_EVENTS } from '../utils/urls';
+import { BASE_URL, GET_EVENTS } from './../../utils/urls';
 import NotificationCard from '../../components/NotificationCard';
 
 const HomeGuardianScreen = ({ navigation }) => {
+    const [events, setEvents] = React.useState([]);
+
+    const bottomSheetRef = useRef(null);
+    const snapPoints = useMemo(() => ['25%', '50%'], []);
+    const handleOpenPress = () => bottomSheetRef.current.expand();
+
+    const getEvents = async () => {
+        try {
+            const url = `${BASE_URL}/${GET_EVENTS}`;
+            const token = await AsyncStorage.getItem('token');
+
+            const res = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setEvents(res.data.data.events.reverse());
+        } catch (error) {
+            console.log(error.response);
+        }
+    };
+
+    React.useEffect(() => {
+        getEvents();
+    }, []);
+
     return (
         <SafeAreaView style={style.body}>
             <StatusBar backgroundColor="#fafafd" barStyle="dark-content" />
 
+            <BottomSheet
+                ref={bottomSheetRef}
+                index={-1}
+                snapPoints={snapPoints}
+                enablePanDownToClose={true}>
+                <View>
+                    <Text>Awesome 🎉</Text>
+                </View>
+            </BottomSheet>
+
             <View style={style.headerView}>
                 <TouchableOpacity
-                    style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    style={{ flexDirection: 'row', alignItems: 'center' }}
+                    onPress={handleOpenPress}>
                     <Text style={style.patientNameText}>Idiotic Gandu</Text>
                     <MaterialIcons
                         name="expand-more"
@@ -85,7 +126,7 @@ const HomeGuardianScreen = ({ navigation }) => {
                             source={require('./../../assets/imgs/camera.png')}
                         />
                         <View style={style.featureTextView}>
-                            <Text style={style.featureTwoText}>Camera</Text>
+                            <Text style={style.featureTwoText}>Live</Text>
                             <Text style={style.featureTwoText}>Feed</Text>
                         </View>
                     </TouchableOpacity>
@@ -104,10 +145,10 @@ const HomeGuardianScreen = ({ navigation }) => {
                     />
                 </View>
 
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
-                <NotificationCard />
+                <NotificationCard event={events[0]} />
+                <NotificationCard event={events[1]} />
+                <NotificationCard event={events[2]} />
+                <NotificationCard event={events[3]} />
             </View>
         </SafeAreaView>
     );
@@ -203,7 +244,7 @@ const style = StyleSheet.create({
     featureIconTwoImage: {
         width: 60,
         height: 49,
-        marginRight: '8%'
+        marginRight: '10%'
     },
     featureTwoText: {
         color: '#1ea675',

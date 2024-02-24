@@ -1,10 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import moment from 'moment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const NotificationCard = () => {
+const NotificationCard = (event) => {
+    // const events = () => {
+    //     console.log(event);
+    // };
+    // React.useEffect(() => {
+    //     events();
+    // }, []);
     return (
         <View style={style.notificationView}>
             <View style={style.iconView}>
@@ -17,9 +24,13 @@ const NotificationCard = () => {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View>
                     <Text style={{ color: '#1c2b8a', fontWeight: 'bold' }}>
-                        Fall Detected
+                        {event?.event?.title}
                     </Text>
-                    <Text style={{ color: '#000000' }}>Dec 11, 1:28 pm</Text>
+                    <Text style={{ color: '#000000' }}>
+                        {moment(event?.event?.createdAt).format(
+                            'Do MMM, hh:mm'
+                        )}
+                    </Text>
                 </View>
                 <View style={{ marginLeft: 90 }}>
                     <MaterialIcons

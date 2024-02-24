@@ -144,7 +144,7 @@ const LoginScreen = ({ navigation }) => {
                     style={styles.loginButtonView}
                     onPress={login}>
                     {isLoading ? (
-                        <ActivityIndicator color="#353A48" />
+                        <ActivityIndicator color="#fff" />
                     ) : (
                         <Text style={styles.loginButtonText}>Login</Text>
                     )}
