@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { navigationRef } from './utils/root-navigation';
 import LoginScreen from './screens/LoginScreen';
 import RegisterPatientScreen from './screens/patient/RegisterPatientScreen';
 import RegisterGuardianScreen from './screens/guardian/RegisterGuardianScreen';
@@ -13,13 +14,14 @@ import RegisterScreen from './screens/RegisterScreen';
 import OtpScreen from './screens/OtpScreen';
 import ConnectionPatientScreen from './screens/patient/ConnectionPatientScreen';
 import AdditionalDetailsPatientScreen from './screens/patient/AdditionalDetailsPatientScreen';
+import NotificationScreen from './screens/NotificationScreen';
 
 const Stack = createStackNavigator();
 
 function App() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
                 <Stack.Navigator>
                     <Stack.Screen
                         name="Login"
@@ -66,9 +68,13 @@ function App() {
                         component={HomeGuardianScreen}
                         options={{ headerShown: false }}
                     />
+                    <Stack.Screen
+                        name="Notification"
+                        component={NotificationScreen}
+                        options={{ headerShown: false }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
-            {/* <HomeGuardianScreen /> */}
         </GestureHandlerRootView>
     );
 }

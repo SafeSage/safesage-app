@@ -35,7 +35,6 @@ const HomeGuardianScreen = ({ navigation }) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-
             setEvents(res.data.data.events.reverse());
         } catch (error) {
             console.log(error.response);

@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import moment from 'moment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import * as RootNavigation from './../utils/root-navigation';
 
 const NotificationCard = (event) => {
     // const events = () => {
@@ -13,7 +15,11 @@ const NotificationCard = (event) => {
     //     events();
     // }, []);
     return (
-        <View style={style.notificationView}>
+        <TouchableOpacity
+            style={style.notificationView}
+            onPress={() => {
+                RootNavigation.navigate('Notification', event);
+            }}>
             <View style={style.iconView}>
                 <MaterialCommunityIcons
                     name="handball"
@@ -40,7 +46,7 @@ const NotificationCard = (event) => {
                     />
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
