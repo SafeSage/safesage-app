@@ -41,6 +41,16 @@ const HomeGuardianScreen = ({ navigation }) => {
         }
     };
 
+    const logout = async () => {
+        try {
+            await AsyncStorage.removeItem('user');
+            await AsyncStorage.removeItem('token');
+            navigation.replace('Login');
+        } catch {
+            console.log(error);
+        }
+    };
+
     React.useEffect(() => {
         getEvents();
     }, []);
@@ -70,7 +80,7 @@ const HomeGuardianScreen = ({ navigation }) => {
                         color={'#000'}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={style.icon}>
+                <TouchableOpacity style={style.icon} onPress={logout}>
                     <MaterialIcons
                         name="account-circle"
                         size={35}
