@@ -17,6 +17,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 
 import { BASE_URL, GET_EVENTS } from './../../utils/urls';
 import NotificationCard from '../../components/NotificationCard';
+import { RPH, RPW } from '../../utils/dimensions';
 
 const HomeGuardianScreen = ({ navigation }) => {
     const [events, setEvents] = React.useState([]);
@@ -177,8 +178,8 @@ const style = StyleSheet.create({
     body: {
         flex: 1,
         backgroundColor: '#fafafd',
-        padding: 25,
-        width: '100%'
+        paddingHorizontal: RPW(5),
+        width: RPW(100)
     },
     headerView: {
         flexDirection: 'row',
@@ -186,16 +187,15 @@ const style = StyleSheet.create({
         alignItems: 'center'
     },
     patientNameText: {
-        marginRight: '2%',
+        marginRight: RPW(1),
         color: '#000',
         fontSize: 20,
         fontWeight: 'bold'
     },
     patientDetails: {
-        marginTop: '5%',
-        paddingVertical: 5,
-        paddingHorizontal: 20,
-        height: 200,
+        marginTop: RPH(2),
+        paddingHorizontal: RPW(5),
+        height: RPH(24),
         borderRadius: 15,
         backgroundColor: '#B1B2FF',
         elevation: 15,
@@ -203,13 +203,13 @@ const style = StyleSheet.create({
         justifyContent: 'center'
     },
     patientDetailsText: {
-        marginBottom: '2%',
+        marginBottom: RPH(1),
         color: '#000',
         fontSize: 15,
         fontWeight: '300'
     },
     featuresView: {
-        marginTop: '5%'
+        marginTop: RPH(2)
     },
     featuresHeadingView: {
         flexDirection: 'row',
@@ -219,20 +219,20 @@ const style = StyleSheet.create({
         color: '#000',
         fontSize: 15,
         fontWeight: '400',
-        marginRight: '3%'
+        marginRight: RPW(2)
     },
     featureButtonsView: {
-        marginTop: '4%',
+        marginTop: RPH(2),
         flexDirection: 'row',
         alignItems: 'center'
     },
     featureOneButton: {
         flexDirection: 'row',
-        width: '49%',
+        width: RPW(44),
         height: '100%',
-        marginRight: '2%',
-        paddingHorizontal: 15,
-        paddingVertical: 20,
+        marginRight: RPW(2),
+        paddingHorizontal: RPW(2),
+        paddingVertical: RPH(2),
         borderRadius: 15,
         backgroundColor: '#fbeaf4',
         justifyContent: 'center'
@@ -253,7 +253,7 @@ const style = StyleSheet.create({
     },
     featureTwoButton: {
         flexDirection: 'row',
-        width: '49%',
+        width: RPW(44),
         paddingHorizontal: 15,
         paddingVertical: 30,
         borderRadius: 15,

@@ -17,7 +17,7 @@ import axios from 'axios';
 import { useRoute } from '@react-navigation/native';
 
 // import illustration from '../assets/illustration.png'
-import { BASE_URL, OTP_PATH } from '../utils/urls';
+import { BASE_URL, OTP_PATH } from '../../utils/urls';
 
 const OtpScreen = ({ navigation }) => {
     const [otp1, setOtp1] = useState('');

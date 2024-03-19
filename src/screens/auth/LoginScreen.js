@@ -17,7 +17,7 @@ import axios from 'axios';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 // import illustration from '../assets/illustration.png'
-import { BASE_URL, LOGIN_PATH } from '../utils/urls';
+import { BASE_URL, LOGIN_PATH } from '../../utils/urls';
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = React.useState('');
@@ -50,7 +50,6 @@ const LoginScreen = ({ navigation }) => {
                     'user',
                     JSON.stringify(res.data.data.user)
                 );
-                console.log(res.data.data.user);
 
                 if (res.data.data.user.userType == 'PATIENT') {
                     navigation.replace('Home_Patient');

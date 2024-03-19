@@ -5,13 +5,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { navigationRef } from './utils/root-navigation';
-import LoginScreen from './screens/LoginScreen';
-import RegisterPatientScreen from './screens/patient/RegisterPatientScreen';
-import RegisterGuardianScreen from './screens/guardian/RegisterGuardianScreen';
+import LoginScreen from './screens/auth/LoginScreen';
+import RegisterPatientScreen from './screens/auth/RegisterPatientScreen';
+import RegisterGuardianScreen from './screens/auth/RegisterGuardianScreen';
 import HomePatientScreen from './screens/patient/HomePatientScreen';
 import HomeGuardianScreen from './screens/guardian/HomeGuardianScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import OtpScreen from './screens/OtpScreen';
+import RegisterScreen from './screens/auth/RegisterScreen';
+import OtpScreen from './screens/auth/OtpScreen';
 import ConnectionPatientScreen from './screens/patient/ConnectionPatientScreen';
 import AdditionalDetailsPatientScreen from './screens/patient/AdditionalDetailsPatientScreen';
 import NotificationScreen from './screens/NotificationScreen';
