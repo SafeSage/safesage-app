@@ -15,6 +15,9 @@ import OtpScreen from './screens/auth/OtpScreen';
 import ConnectionPatientScreen from './screens/patient/ConnectionPatientScreen';
 import AdditionalDetailsPatientScreen from './screens/patient/AdditionalDetailsPatientScreen';
 import NotificationScreen from './screens/NotificationScreen';
+import ScheduleScreen from './screens/medicine dispenser/ScheduleScreen';
+import NameScreen from './screens/medicine dispenser/add medicine/NameScreen';
+import DayScreen from './screens/medicine dispenser/add medicine/DayScreen';
 
 const Stack = createStackNavigator();
 
@@ -69,8 +72,23 @@ function App() {
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
+                        name="Medicine_Dispenser"
+                        component={ScheduleScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
                         name="Notification"
                         component={NotificationScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Name"
+                        component={NameScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Day"
+                        component={DayScreen}
                         options={{ headerShown: false }}
                     />
                 </Stack.Navigator>
