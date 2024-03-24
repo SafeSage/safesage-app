@@ -9,8 +9,9 @@ import {
     View
 } from 'react-native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import { RPH, RPW } from '../utils/dimensions';
 
 const NotificationScreen = ({ route, navigation }) => {
     const { event } = route.params;
@@ -58,16 +59,17 @@ const style = StyleSheet.create({
     bodyOne: {
         flex: 1,
         backgroundColor: '#fafafd',
-        width: '100%'
+        width: RPW(100)
     },
     bodyTwo: {
-        padding: 25
+        paddingVertical: RPH(3),
+        paddingHorizontal: RPW(5)
     },
     headerView: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#e8504f',
-        paddingVertical: 25,
+        paddingVertical: RPH(2),
         paddingHorizontal: 10
     },
     headerText: {

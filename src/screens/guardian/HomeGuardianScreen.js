@@ -74,7 +74,7 @@ const HomeGuardianScreen = ({ navigation }) => {
                 <TouchableOpacity
                     style={{ flexDirection: 'row', alignItems: 'center' }}
                     onPress={handleOpenPress}>
-                    <Text style={style.patientNameText}>Idiotic Gandu</Text>
+                    <Text style={style.patientNameText}>Ayan Kapoor</Text>
                     <MaterialIcons
                         name="expand-more"
                         size={27}
@@ -91,15 +91,13 @@ const HomeGuardianScreen = ({ navigation }) => {
             </View>
 
             <TouchableOpacity style={style.patientDetails}>
+                <Text style={style.patientDetailsText}>Name: Ayan Kapoor</Text>
+                <Text style={style.patientDetailsText}>Sex: Male</Text>
+                <Text style={style.patientDetailsText}>Age: 72</Text>
+                <Text style={style.patientDetailsText}>Height: 5'10</Text>
+                <Text style={style.patientDetailsText}>Weight: 65</Text>
                 <Text style={style.patientDetailsText}>
-                    Name: Idiotic Gandu
-                </Text>
-                <Text style={style.patientDetailsText}>Sex: Sissy</Text>
-                <Text style={style.patientDetailsText}>Age: 69</Text>
-                <Text style={style.patientDetailsText}>Height: 4'2</Text>
-                <Text style={style.patientDetailsText}>Weight: 69</Text>
-                <Text style={style.patientDetailsText}>
-                    Address: Chutiya Galli
+                    Address: 12E, Deepanjali, Vile Parle (W)
                 </Text>
             </TouchableOpacity>
 
@@ -118,7 +116,11 @@ const HomeGuardianScreen = ({ navigation }) => {
                 </View>
 
                 <View style={style.featureButtonsView}>
-                    <TouchableOpacity style={style.featureOneButton}>
+                    <TouchableOpacity
+                        style={style.featureOneButton}
+                        onPress={() =>
+                            navigation.navigate('Medicine_Dispenser')
+                        }>
                         <Image
                             style={style.featureIconOneImage}
                             source={require('./../../assets/imgs/pills.png')}
@@ -206,7 +208,7 @@ const style = StyleSheet.create({
         marginBottom: RPH(1),
         color: '#000',
         fontSize: 15,
-        fontWeight: '300'
+        fontWeight: '400'
     },
     featuresView: {
         marginTop: RPH(2)
