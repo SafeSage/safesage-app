@@ -147,7 +147,13 @@ const DayScreen = ({ route, navigation }) => {
                     />
                 </View>
 
-                <TouchableOpacity style={style.sosButton}>
+                <TouchableOpacity
+                    style={style.sosButton}
+                    onPress={() => {
+                        navigation.navigate('Medicine_Frequency', {
+                            medicineObj
+                        });
+                    }}>
                     <MaterialIcons
                         name="arrow-forward"
                         size={35}
