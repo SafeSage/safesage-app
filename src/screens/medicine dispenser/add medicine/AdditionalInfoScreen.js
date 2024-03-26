@@ -65,6 +65,9 @@ const AdditionalInfoScreen = ({ route, navigation }) => {
                 }
             }
 
+            medicineObj.patientId = JSON.parse(
+                await AsyncStorage.getItem('patient')
+            )._id;
             medicineObj.days = days;
             medicineObj.timestamps = timestamps;
 
@@ -79,11 +82,6 @@ const AdditionalInfoScreen = ({ route, navigation }) => {
             });
 
             if (res.status == 201) {
-                await AsyncStorage.setItem(
-                    'medicines',
-                    JSON.stringify(res.data.data)
-                );
-
                 if (user.userType == 'PATIENT') {
                     navigation.replace('Home_Patient');
                 } else if (user.userType == 'GUARDIAN') {
