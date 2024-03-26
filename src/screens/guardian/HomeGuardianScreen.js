@@ -15,30 +15,96 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomSheet from '@gorhom/bottom-sheet';
 
-import { BASE_URL, GET_EVENTS } from './../../utils/urls';
+import { BASE_URL, GET_EVENTS, GET_PATIENTS } from './../../utils/urls';
 import NotificationCard from '../../components/NotificationCard';
 import { RPH, RPW } from '../../utils/dimensions';
 
 const HomeGuardianScreen = ({ navigation }) => {
     const [events, setEvents] = React.useState([]);
+    const [patient, setPatient] = React.useState([]);
+    const [patients, setPatients] = React.useState([]);
+    const [views, setViews] = React.useState([]);
 
     const bottomSheetRef = useRef(null);
-    const snapPoints = useMemo(() => ['25%', '50%'], []);
-    const handleOpenPress = () => bottomSheetRef.current.expand();
+    const snapPoints = useMemo(() => ['67%'], []);
+    const handleOpenPress = () => {
+        patientView();
+        bottomSheetRef.current.expand();
+    };
 
-    const getEvents = async () => {
+    const getEventsAndPatients = async () => {
         try {
-            const url = `${BASE_URL}/${GET_EVENTS}`;
+            const urlEvents = `${BASE_URL}/${GET_EVENTS}`;
+            const urlPatients = `${BASE_URL}/${GET_PATIENTS}`;
             const token = await AsyncStorage.getItem('token');
 
-            const res = await axios.get(url, {
+            const events = await axios.get(urlEvents, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setEvents(res.data.data.events.reverse());
+
+            setEvents(events.data.data.events.reverse());
+
+            const patients = await axios.get(urlPatients, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setPatient(JSON.parse(await AsyncStorage.getItem('patient')));
+            setPatients(patients.data.data.patients);
         } catch (error) {
             console.log(error.response);
+        }
+    };
+
+    const patientView = () => {
+        let view = [];
+        for (let i = 0; i < patients.length; i++) {
+            view.push(
+                <View key={i}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            patientSelect(i);
+                        }}>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                marginVertical: RPH(2),
+                                paddingVertical: RPH(2),
+                                alignItems: 'center',
+                                borderBottomWidth: 1
+                            }}>
+                            <MaterialIcons
+                                name="person"
+                                size={30}
+                                color={'#000'}
+                            />
+                            <Text
+                                style={{
+                                    marginLeft: RPW(2),
+                                    fontWeight: '500',
+                                    fontSize: 18,
+                                    color: '#000'
+                                }}>
+                                {patients[i].name}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
+        setViews(view);
+    };
+
+    const patientSelect = async (i) => {
+        try {
+            await AsyncStorage.setItem('patient', JSON.stringify(patients[i]));
+            setPatient(patients[i]);
+            bottomSheetRef.current.close();
+            getEventsAndPatients();
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -53,28 +119,18 @@ const HomeGuardianScreen = ({ navigation }) => {
     };
 
     React.useEffect(() => {
-        getEvents();
+        getEventsAndPatients();
     }, []);
 
     return (
         <SafeAreaView style={style.body}>
             <StatusBar backgroundColor="#fafafd" barStyle="dark-content" />
 
-            <BottomSheet
-                ref={bottomSheetRef}
-                index={-1}
-                snapPoints={snapPoints}
-                enablePanDownToClose={true}>
-                <View>
-                    <Text>Awesome 🎉</Text>
-                </View>
-            </BottomSheet>
-
             <View style={style.headerView}>
                 <TouchableOpacity
                     style={{ flexDirection: 'row', alignItems: 'center' }}
                     onPress={handleOpenPress}>
-                    <Text style={style.patientNameText}>Ayan Kapoor</Text>
+                    <Text style={style.patientNameText}>{patient?.name}</Text>
                     <MaterialIcons
                         name="expand-more"
                         size={27}
@@ -91,13 +147,21 @@ const HomeGuardianScreen = ({ navigation }) => {
             </View>
 
             <TouchableOpacity style={style.patientDetails}>
-                <Text style={style.patientDetailsText}>Name: Ayan Kapoor</Text>
-                <Text style={style.patientDetailsText}>Sex: Male</Text>
-                <Text style={style.patientDetailsText}>Age: 72</Text>
-                <Text style={style.patientDetailsText}>Height: 5'10</Text>
-                <Text style={style.patientDetailsText}>Weight: 65</Text>
                 <Text style={style.patientDetailsText}>
-                    Address: 12E, Deepanjali, Vile Parle (W)
+                    Name: {patient?.name}
+                </Text>
+                <Text style={style.patientDetailsText}>Sex: Male</Text>
+                <Text style={style.patientDetailsText}>
+                    Age: {patient?.age}
+                </Text>
+                <Text style={style.patientDetailsText}>
+                    Height: {patient?.height}
+                </Text>
+                <Text style={style.patientDetailsText}>
+                    Weight: {patient?.weight}
+                </Text>
+                <Text style={style.patientDetailsText}>
+                    Address: {patient?.address}
                 </Text>
             </TouchableOpacity>
 
@@ -172,6 +236,17 @@ const HomeGuardianScreen = ({ navigation }) => {
                     <Text>No notifications available</Text>
                 )}
             </View>
+
+            <BottomSheet
+                ref={bottomSheetRef}
+                index={-1}
+                snapPoints={snapPoints}
+                enablePanDownToClose={true}>
+                <View style={style.bodyTwo}>
+                    <Text style={style.patientNameText}>Select a patient</Text>
+                    {views}
+                </View>
+            </BottomSheet>
         </SafeAreaView>
     );
 };
@@ -180,6 +255,12 @@ const style = StyleSheet.create({
     body: {
         flex: 1,
         backgroundColor: '#fafafd',
+        paddingHorizontal: RPW(5),
+        width: RPW(100)
+    },
+    bodyTwo: {
+        flex: 1,
+        backgroundColor: '#fff',
         paddingHorizontal: RPW(5),
         width: RPW(100)
     },
