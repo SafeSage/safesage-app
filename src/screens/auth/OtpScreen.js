@@ -72,8 +72,8 @@ const OtpScreen = ({ navigation }) => {
 
             setIsLoading(false);
         } catch (error) {
-            console.log(error.response);
-            if (error.response.status === 400) {
+            console.error(error);
+            if (error.response?.status === 400) {
                 setError('Incorrect OTP!');
                 onToggleSnackBar();
             } else {
