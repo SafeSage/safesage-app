@@ -55,8 +55,7 @@ const StockScreen = ({ route, navigation }) => {
                     style={style.sosButton}
                     onPress={() => {
                         medicineObj.pillsLoaded = parseInt(number);
-                        medicineObj.pillsLeft = number;
-                        console.log(medicineObj);
+                        medicineObj.pillsLeft = parseInt(number);
                         navigation.navigate('Medicine_Additional', {
                             medicineObj
                         });
