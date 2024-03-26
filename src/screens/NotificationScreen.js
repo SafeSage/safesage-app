@@ -18,7 +18,7 @@ const NotificationScreen = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={style.bodyOne}>
-            <StatusBar backgroundColor="#e8504f" barStyle="dark-content" />
+            <StatusBar backgroundColor="#e8504f" barStyle="light-content" />
 
             <View style={style.headerView}>
                 <TouchableOpacity

@@ -64,6 +64,8 @@ const NameScreen = ({ navigation }) => {
             <View style={style.bodyTwo}>
                 <TextInput
                     placeholder="Enter medicine"
+                    placeholderTextColor={'#000'}
+                    cursorColor={'#263f9b'}
                     onChangeText={(value) => {
                         medicineObj.tube = value;
                         medicineObj.drugName = value;
@@ -116,6 +118,7 @@ const style = StyleSheet.create({
         marginTop: RPH(3)
     },
     enterMedicineInput: {
+        color: '#000',
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: RPW(3),

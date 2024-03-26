@@ -108,6 +108,8 @@ const AdditionalInfoScreen = ({ route, navigation }) => {
             <View style={style.bodyTwo}>
                 <TextInput
                     placeholder="Instructions"
+                    placeholderTextColor={'#000'}
+                    cursorColor={'#263f9b'}
                     onChangeText={(value) => {
                         medicineObj.instructions = value;
                     }}
@@ -116,6 +118,8 @@ const AdditionalInfoScreen = ({ route, navigation }) => {
 
                 <TextInput
                     placeholder="Side Effects"
+                    placeholderTextColor={'#000'}
+                    cursorColor={'#263f9b'}
                     onChangeText={(value) => {
                         medicineObj.sideEffects = value;
                     }}
@@ -187,6 +191,7 @@ const style = StyleSheet.create({
         marginTop: RPH(3)
     },
     enterMedicineInput: {
+        color: '#000',
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: RPW(3),
