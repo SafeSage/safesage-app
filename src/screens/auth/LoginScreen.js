@@ -17,7 +17,7 @@ import axios from 'axios';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 // import illustration from '../assets/illustration.png'
-import { BASE_URL, LOGIN_PATH } from '../../utils/urls';
+import { BASE_URL, GET_PATIENTS, LOGIN_PATH } from '../../utils/urls';
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = React.useState('');
@@ -51,6 +51,19 @@ const LoginScreen = ({ navigation }) => {
                     JSON.stringify(res.data.data.user)
                 );
 
+                const urlPatients = `${BASE_URL}/${GET_PATIENTS}`;
+                const token = res.data.data.token;
+
+                const patients = await axios.get(urlPatients, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                await AsyncStorage.setItem(
+                    'patient',
+                    JSON.stringify(patients.data.data.patients[0])
+                );
+
                 if (res.data.data.user.userType == 'PATIENT') {
                     navigation.replace('Home_Patient');
                 } else if (res.data.data.user.userType == 'GUARDIAN') {
@@ -60,7 +73,7 @@ const LoginScreen = ({ navigation }) => {
                 setIsLoading(false);
             }
         } catch (error) {
-            if (error.response.status === 404) {
+            if (error?.response?.status === 404) {
                 setError('Invalid email or password!');
                 onToggleSnackBar();
             } else {
