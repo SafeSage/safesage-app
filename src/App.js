@@ -18,6 +18,11 @@ import NotificationScreen from './screens/NotificationScreen';
 import ScheduleScreen from './screens/medicine dispenser/ScheduleScreen';
 import NameScreen from './screens/medicine dispenser/add medicine/NameScreen';
 import DayScreen from './screens/medicine dispenser/add medicine/DayScreen';
+import FrequencyScreen from './screens/medicine dispenser/add medicine/FrequencyScreen';
+import TimeScreen from './screens/medicine dispenser/add medicine/TimeScreen';
+import PeriodScreen from './screens/medicine dispenser/add medicine/PeriodScreen';
+import StockScreen from './screens/medicine dispenser/add medicine/StockScreen';
+import AdditionalInfoScreen from './screens/medicine dispenser/add medicine/AdditionalInfoScreen';
 
 const Stack = createStackNavigator();
 
@@ -89,6 +94,31 @@ function App() {
                     <Stack.Screen
                         name="Medicine_Day"
                         component={DayScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Frequency"
+                        component={FrequencyScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Time"
+                        component={TimeScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Period"
+                        component={PeriodScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Stock"
+                        component={StockScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="Medicine_Additional"
+                        component={AdditionalInfoScreen}
                         options={{ headerShown: false }}
                     />
                 </Stack.Navigator>
